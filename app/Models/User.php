@@ -45,7 +45,7 @@ class User extends Authenticatable
     ];
 
     // Has Many Product
-    public function projectusers()
+    public function project_users()
     {
         return $this->hasMany(ProjectUser::class, 'user_id', 'id');
     }

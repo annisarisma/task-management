@@ -14,8 +14,13 @@ class ProjectController extends Controller
      */
     public function index()
     {
+        $projects = Project::whereHas('project_users', function ($query_projects) {
+            $query_projects->where('user_id', auth()->id());
+        })->get();
+
         return view('menu.project_index', [
-            'title' => 'Project'
+            'title' => 'Project',
+            'projects' => $projects
         ]);
     }
 
@@ -56,6 +61,8 @@ class ProjectController extends Controller
         // Store Member
         foreach ($request->newitem as $value) {
             $arr_members = [];
+            $arr_members[] = auth()->id();
+
             foreach ($value['member'] as $member) {
                 $user = User::where('username', $member)->first();
     

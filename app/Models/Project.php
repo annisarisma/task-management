@@ -18,7 +18,7 @@ class Project extends Model
     ];
 
     // Has Many Users
-    public function projectusers()
+    public function project_users()
     {
         return $this->hasMany(ProjectUser::class, 'project_id', 'id');
     }
