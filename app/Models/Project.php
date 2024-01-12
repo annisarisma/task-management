@@ -17,6 +17,12 @@ class Project extends Model
         'end_date'
     ];
 
+    // Has One User Owner
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
     // Has Many Users
     public function project_users()
     {

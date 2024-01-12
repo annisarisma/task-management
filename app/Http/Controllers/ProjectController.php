@@ -30,7 +30,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::where('id', '!=', auth()->id())->get();
         return view('menu.project_create', [
             'title' => 'Project',
             'users' => $users,
@@ -46,6 +46,7 @@ class ProjectController extends Controller
         $request->validate([
             'name' => ['required'],
             'description' => ['required'],
+            'member' => ['nullable'],
             'start_date' => ['required'],
             'end_date' => ['required'],
         ]);
@@ -60,22 +61,23 @@ class ProjectController extends Controller
         ]);
 
         // Store Member
-        foreach ($request->newitem as $value) {
-            $arr_members = [];
-            $arr_members[] = auth()->id();
-
-            foreach ($value['member'] as $member) {
-                $user = User::where('username', $member)->first();
-    
-                $arr_members[] = $user->id;
+        $arr_members = [];
+        $arr_members[] = auth()->id();
+        if ($request->newitem) {
+            foreach ($request->newitem as $value) {
+                foreach ($value['member'] as $member) {
+                    $user = User::where('username', $member)->first();
+        
+                    $arr_members[] = $user->id;
+                }
             }
+        }
 
-            foreach ($arr_members as $member) {
-                ProjectUser::create([
-                    'user_id' => $member,
-                    'project_id' => $project->id
-                ]);
-            }
+        foreach ($arr_members as $member) {
+            ProjectUser::create([
+                'user_id' => $member,
+                'project_id' => $project->id
+            ]);
         }
 
         // Store Task
@@ -205,12 +207,11 @@ class ProjectController extends Controller
             $project_name = $project->name;
             $project->delete();
             return back()->with('success-alert', [
-                'title' => 'Delete Project Success',
+                'title' => 'Delete Success',
                 'message' => 'Task ' . $project_name . ' successfully deleted'
             ]);
         } catch (\Exception $e) {
             return back()->with('error-alert', [
-                'title' => 'Delete Failed',
                 'message' => 'Failed to delete project ' . $project_name
             ]);
         }

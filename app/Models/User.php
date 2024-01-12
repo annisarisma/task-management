@@ -44,10 +44,16 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    // Has Many Product
+    // Has Many Project
     public function project_users()
     {
         return $this->hasMany(ProjectUser::class, 'user_id', 'id');
+    }
+
+    // Has Many Project Own
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'user_id', 'id');
     }
 
     // Has Many Tasks

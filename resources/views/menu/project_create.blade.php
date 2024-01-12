@@ -13,7 +13,7 @@
         <!-- Name -->
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Name the project" name="name" value="{{ old('name') }}">
+          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Enter a unique and meaningful name for your project" name="name" value="{{ old('name') }}">
           @error('name')
             <div class="invalid-feedback">
               {{ $message }}
@@ -24,7 +24,7 @@
         <!-- Description -->
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
-          <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" placeholder="johndoe" name="description" value="{{ old('description') }}">
+          <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" placeholder="Describe your project in detail " name="description" value="{{ old('description') }}">
           @error('description')
             <div class="invalid-feedback">
               {{ $message }}
@@ -41,6 +41,7 @@
                         class="form-control js-example-basic-multiple @error('member') is-invalid @enderror"
                         multiple="multiple"
                         name="{{ 'newitem[' . $i . '][member][]' }}">
+                        <option value="" disabled selected>Select members...</option>
                         @foreach ($users as $user)
                           <option
                               {{ old('member') == $user->username ? 'selected' : ' ' }}
