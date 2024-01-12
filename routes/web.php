@@ -30,9 +30,9 @@ Route::controller(ProjectController::class)->group(function () {
     Route::get('/project', 'index');
     Route::get('/project/project-create', 'create');
     Route::post('/project/project-store', 'store');
-    Route::get('/project/project-detail/{id}', 'show');
     Route::get('/project/project-edit/{id}', 'edit');
     Route::post('/project/project-update', 'update');
+    Route::delete('/project/project-destroy/{id}', 'destroy');
 });
 Route::controller(TaskController::class)->group(function () {
     Route::get('/task', 'index');

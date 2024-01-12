@@ -1,6 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
+
+@include('layouts.flash-message')
 <div class="container-content p-5">
   <a href="/project/project-create" class="btn btn-primary mt-4 mb-4">Add New Project</a>
   <div class="table-container">
@@ -25,7 +27,7 @@
                     <td>{{ $project->start_date }}</td>
                     <td>{{ $project->end_date }}</td>
                     <td>
-                        <a data-bs-toggle="modal" data-bs-target="#deleteModal" style="cursor: pointer;">
+                        <a data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $project->id }}" style="cursor: pointer;">
                             <i data-feather="trash-2" class="icon-action" style="color: #CA4E4E" width=20px></i>
                         </a>
                         <a href="/project/project-edit/{{ encrypt($project->id) }}">
@@ -45,7 +47,7 @@
                                         aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body text-wrap">
-                                    <p>Task: {{ $task->name }}</p>
+                                    <p>Project: {{ $project->name }}</p>
                                     The task will automatically deleted from the database
                                 </div>
                                 <div class="modal-footer">
