@@ -36,4 +36,9 @@ Route::controller(TaskController::class)->group(function () {
     Route::get('/task', 'index');
     Route::get('/task/task_project/{id}', 'filter');
     Route::post('/task/task_reorder', 'reorder');
+    Route::get('/task/task_create/{id}', 'create');
+    Route::post('/task/task_store', 'store');
+    Route::get('/task/task_edit/{id}', 'edit');
+    Route::post('/task/task_update/{id}', 'update');
+    Route::delete('/task/task_destroy/{id}', 'destroy');
 });
