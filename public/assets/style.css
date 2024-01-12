@@ -1,0 +1,96 @@
+body {
+    background-color: whitesmoke;
+}
+
+.wrapper .container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.wrapper .container .container-login {
+    width: 40%;
+    height: fit-content;
+    padding: 12px;
+    background-color: white;
+}
+
+.wrapper .container form {
+    width: 30%;
+    padding: 20px;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #5d21d2 !important;
+}
+
+.left-side {
+    align-items: center;
+    padding-right: 50px;
+}
+
+.dropdown-toggle {
+    border: none !important;
+}
+
+.img-container {
+    width: 40px;
+    height: 40px;
+    background-color: #5d21d2;
+    border-radius: 50%;
+}
+
+.logout {
+    margin: 0px 0px 0px 2px;
+}
+
+.btn-logout {
+    border: none !important;
+}
+
+/* Filepond */
+form {
+    margin: 40px;
+}
+
+.filepond--drop-label {
+    background-color: #ebe7f7;
+    padding: 80px;
+    border-radius: 12px;
+    border: 1px dashed #5d21d2;
+    margin-bottom: 20px;
+}
+
+.filepond--list-scroller {
+    margin-top: 20px;
+}
+
+.filepond--list {
+    top: 8px !important;
+    height: 80px !important;
+    overflow: hidden !important;
+}
+
+.table-responsive {
+    padding: 40px;
+}
+
+.card {
+    padding: 20px;
+}
+
+table .dataTable .no-footer {
+    margin-top: 20px !important;
+    border-bottom: none !important;
+    margin-bottom: 200px !important;
+}
+
+.filepond--credits {
+    display: none;
+}
+
+.btn {
+    border-radius: 4px !important;
+}
