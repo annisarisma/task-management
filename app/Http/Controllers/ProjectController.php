@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\ProjectUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -22,8 +24,10 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $users = User::all();
         return view('menu.project_create', [
-            'title' => 'Project'
+            'title' => 'Project',
+            'users' => $users,
         ]);
     }
 
@@ -32,7 +36,44 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Validate Request
+        $request->validate([
+            'name' => ['required'],
+            'description' => ['required'],
+            'start_date' => ['required'],
+            'end_date' => ['required'],
+        ]);
+
+        // Store Project
+        $project = Project::create([
+            'name' => $request->name,
+            'user_id' => auth()->id(),
+            'description' => $request->description,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
+        ]);
+
+        // Store Member
+        foreach ($request->newitem as $value) {
+            $arr_members = [];
+            foreach ($value['member'] as $member) {
+                $user = User::where('username', $member)->first();
+    
+                $arr_members[] = $user->id;
+            }
+
+            foreach ($arr_members as $member) {
+                ProjectUser::create([
+                    'user_id' => $member,
+                    'project_id' => $project->id
+                ]);
+            }
+        }
+
+        // Return
+        return redirect('/project')->with('success-alert', [
+            'message' => 'Upload file successfully'
+        ]);
     }
 
     /**
