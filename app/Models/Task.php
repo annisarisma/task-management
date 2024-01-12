@@ -11,9 +11,8 @@ class Task extends Model
 
     protected $fillable = [
         'name',
+        'project_id',
         'priority',
-        'start_date',
-        'end_date'
     ];
 
     // Has Many Users

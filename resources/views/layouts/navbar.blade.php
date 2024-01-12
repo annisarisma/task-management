@@ -7,7 +7,7 @@
                     <a class="nav-link active" aria-current="page" href="/project">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Task</a>
+                    <a class="nav-link active" aria-current="page" href="/task">Task</a>
                 </li>
             </ul>
         </div>

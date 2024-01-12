@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\Task;
 use Illuminate\Http\Request;
 
@@ -12,15 +13,36 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::whereHas('project_users', function ($query_projects) {
+            $query_projects->where('user_id', auth()->id());
+        })->get();
+
+        $tasks = Task::where('project_id', 1)->get();
+
+        return view('menu.task_index', [
+            'title' => 'Project',
+            'projects' => $projects,
+            'tasks' => null,
+            'project_selected' => null,
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function filter($id)
     {
-        //
+        $tasks = Task::where('project_id', $id)->get();
+        $projects = Project::whereHas('project_users', function ($query_projects) {
+            $query_projects->where('user_id', auth()->id());
+        })->get();
+
+        return view('menu.task_index', [
+            'title' => 'Project',
+            'projects' => $projects,
+            'tasks' => $tasks,
+            'project_selected' => $id,
+        ]);
     }
 
     /**

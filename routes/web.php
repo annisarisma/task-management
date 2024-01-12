@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,4 +30,9 @@ Route::controller(ProjectController::class)->group(function () {
     Route::get('/project', 'index');
     Route::get('/project/project-create', 'create');
     Route::post('/project/project-store', 'store');
+    Route::get('/project/project-detail/{id}', 'show');
+});
+Route::controller(TaskController::class)->group(function () {
+    Route::get('/task', 'index');
+    Route::get('/task/task_project/{id}', 'filter');
 });

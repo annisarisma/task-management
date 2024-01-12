@@ -42,11 +42,11 @@
                         multiple="multiple"
                         name="{{ 'newitem[' . $i . '][member][]' }}">
                         @foreach ($users as $user)
-                            <option
-                                {{ old('member') == $user->username ? 'selected' : ' ' }}
-                                value="{{ $user->username }}">
-                                {{ $user->name }}
-                            </option>
+                          <option
+                              {{ old('member') == $user->username ? 'selected' : ' ' }}
+                              value="{{ $user->username }}">
+                              {{ $user->name }}
+                          </option>
                         @endforeach
                     </select>
                     @error('member')
@@ -80,9 +80,42 @@
           @enderror
         </div>
 
+        <!-- Task -->
+        <div class="mb-3">
+          <label for="task" class="form-label">Tasks</label>
+          <button class="btn btn-sm btn-success tambah_item" type="button" id="dynamic-ar">Tambah Data</button>
+          
+          <div class="container-inputTask" id="tasks_append">
+            <div class="inputTask d-flex gap-2 mt-3">
+              <input type="text" class="form-control @error('task') is-invalid @enderror" id="task" placeholder="johndoe" name="task[]" value="{{ old('task') }}">
+              <button type="button" name="add" class="btn btn-danger">Remove</button>
+            </div>
+          </div>
+        </div>
+
         <div class="d-grid gap-2">
           <button type="submit" class="btn btn-primary">Create New Project</button>
         </div>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script type="text/javascript">
+    var i = 0;
+    $("#dynamic-ar").click(function() {
+        ++i;
+        $("#tasks_append").append(
+            `<div class="inputTask d-flex gap-2 mt-3">
+              <input type="text" class="form-control @error('task_${i}') is-invalid @enderror" id="task_${i}" placeholder="johndoe" name="task[]" value="{{ old('task_${i}') }}">
+              <button type="button" name="add" class="btn btn-danger">Remove</button>
+            </div>`
+        );
+    });
+
+    $(document).ready(function() {
+        $(document).on('click', '.btn-danger', function() {
+            $(this).closest('.inputTask').remove();
+        });
+    });
+</script>
 @endsection

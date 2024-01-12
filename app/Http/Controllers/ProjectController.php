@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Models\ProjectUser;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -77,6 +78,20 @@ class ProjectController extends Controller
             }
         }
 
+        // Store Task
+        $tasks = $request->input('task');
+        $number = 0;
+
+        foreach ($tasks as $task) {
+            Task::create([
+                'name' => $task,
+                'project_id' => $project->id,
+                'priority' => $number,
+            ]);
+
+            $number += 1;
+        }
+
         // Return
         return redirect('/project')->with('success-alert', [
             'message' => 'Upload file successfully'
@@ -86,9 +101,16 @@ class ProjectController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show($id)
     {
-        //
+        $project = Project::find(base64_decode($id));
+        $tasks = Task::where('project_id', 'id')->get();
+
+        return view('menu.project_index', [
+            'title' => 'Project',
+            'projects' => $project,
+            'tasks' => $tasks
+        ]);
     }
 
     /**
