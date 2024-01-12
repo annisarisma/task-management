@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container-content p-5">
+<div class="container-content px-5">
   <form method="POST" action="/project/project-update">
         @csrf
         @php
             $i = 1;
         @endphp
 
-        <h2 class="mb-4">Create New Project</h2>
+        <h2 class="mb-4">Update Project</h2>
 
         <!-- Name -->
         <div class="mb-3">
@@ -97,7 +97,7 @@
         <input type="text" value="{{ $project->id }}" name="project_id" hidden>
 
         <div class="d-grid gap-2">
-          <button type="submit" class="btn btn-primary">Create New Project</button>
+          <button type="submit" class="btn btn-primary">Update Project</button>
         </div>
     </form>
 </div>

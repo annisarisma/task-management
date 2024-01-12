@@ -96,7 +96,7 @@ class ProjectController extends Controller
 
         // Return
         return redirect('/project')->with('success-alert', [
-            'message' => 'Upload file successfully'
+            'message' => 'Create new project successfully'
         ]);
     }
 
@@ -193,7 +193,7 @@ class ProjectController extends Controller
 
         // Return
         return redirect('/project')->with('success-alert', [
-            'message' => 'Upload file successfully'
+            'message' => 'Update project successfully'
         ]);
     }
 

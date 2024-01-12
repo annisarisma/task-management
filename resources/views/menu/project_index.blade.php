@@ -3,7 +3,7 @@
 @section('content')
 
 @include('layouts.flash-message')
-<div class="container-content p-5">
+<div class="container-content px-5">
     <a href="/project/project-create" class="btn btn-primary mt-4 mb-4">Add New Project</a>
     <div class="table-container">
         <table id="example" class="table table-striped table-bordered hover" style="width: 100%">
@@ -44,13 +44,13 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">Are you sure to delete this task?</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">Are you sure to delete this project?</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body text-wrap">
                                         <p>Project: {{ $project->name }}</p>
-                                        The task will automatically deleted from the database
+                                        The project will automatically deleted from the database
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
