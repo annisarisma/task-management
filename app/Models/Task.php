@@ -20,4 +20,10 @@ class Task extends Model
     {
         return $this->hasMany(TaskUser::class, 'task_id', 'id');
     }
+
+    // Has One
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'project_id', 'id');
+    }
 }

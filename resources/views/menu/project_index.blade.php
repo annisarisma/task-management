@@ -25,16 +25,43 @@
                     <td>{{ $project->start_date }}</td>
                     <td>{{ $project->end_date }}</td>
                     <td>
-                        <a href="/project/project-detail/{{ base64_encode($project->id) }}">
-                            <i data-feather="eye" class="icon-action" style="color: #434D56" width=20px></i>
-                        </a>
                         <a data-bs-toggle="modal" data-bs-target="#deleteModal" style="cursor: pointer;">
                             <i data-feather="trash-2" class="icon-action" style="color: #CA4E4E" width=20px></i>
                         </a>
-                        <a href="">
+                        <a href="/project/project-edit/{{ encrypt($project->id) }}">
                             <i data-feather="edit" class="icon-action" style="color: #9A55A3" width=20px></i>
                         </a>
                     </td>
+
+
+                    <!-- Confirmation Modal -->
+                    <div class="modal fade modalDelete" id="deleteModal-{{ $project->id }}"
+                        tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Are you sure to delete this task?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body text-wrap">
+                                    <p>Task: {{ $task->name }}</p>
+                                    The task will automatically deleted from the database
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Tidak</button>
+                                    <form
+                                        action="/project/project-destroy/{{ encrypt($project->id) }}"
+                                        method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-primary">Ya</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </tr>
             @endforeach
         </tbody>

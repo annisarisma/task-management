@@ -22,4 +22,10 @@ class Project extends Model
     {
         return $this->hasMany(ProjectUser::class, 'project_id', 'id');
     }
+
+    // Has Many Tasks
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'project_id', 'id');
+    }
 }
