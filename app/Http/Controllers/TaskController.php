@@ -17,8 +17,6 @@ class TaskController extends Controller
             $query_projects->where('user_id', auth()->id());
         })->get();
 
-        $tasks = Task::where('project_id', 1)->get();
-
         return view('menu.task_index', [
             'title' => 'Project',
             'projects' => $projects,
@@ -32,16 +30,39 @@ class TaskController extends Controller
      */
     public function filter($id)
     {
-        $tasks = Task::where('project_id', $id)->get();
+        $id = base64_decode($id);
+        $tasks = Task::where('project_id', $id)->orderBy('priority','ASC')->get();
         $projects = Project::whereHas('project_users', function ($query_projects) {
             $query_projects->where('user_id', auth()->id());
         })->get();
+        
 
         return view('menu.task_index', [
             'title' => 'Project',
             'projects' => $projects,
             'tasks' => $tasks,
             'project_selected' => $id,
+        ]);
+    }
+
+    public function reorder(Request $request)
+    {
+        $id = base64_decode($request->project_id);
+        $tasks = Task::where('project_id', $id)->get();
+
+        foreach ($tasks as $task) {
+            foreach ($request->order as $order) {
+                if ($order['id'] == $task->id) {
+                    $task->update([
+                        'priority' => $order['position']
+                    ]);
+                }
+            }
+        }
+
+        return response([
+            'data' => $request->order,
+            'status' => 'success'
         ]);
     }
 

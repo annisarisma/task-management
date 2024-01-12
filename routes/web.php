@@ -35,4 +35,5 @@ Route::controller(ProjectController::class)->group(function () {
 Route::controller(TaskController::class)->group(function () {
     Route::get('/task', 'index');
     Route::get('/task/task_project/{id}', 'filter');
+    Route::post('/task/task_reorder', 'reorder');
 });

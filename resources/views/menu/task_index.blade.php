@@ -10,30 +10,24 @@
                 <option selected>No Project Choose</option>
             @endif
             @foreach ($projects as $project)
-                <option {{ $project_selected == '$project->id' ? 'selected' : ' '}} value="{{ $project->id }}">{{ $project->name }}</option>
+                <option {{ $project_selected == $project->id ? 'selected' : ' '}} value="{{ base64_encode($project->id) }}">{{ $project->name }}</option>
             @endforeach
         </select>
     </div>
 
-    <table id="example" class="table table-striped table-bordered hover" style="width: 100%">
+    <table id="tableSort" class="table table-bordered table-hover" style="width: 100%">
         <thead>
             <tr>
                 <th>Taks Name</th>
                 <th>Action</th>
             </tr>
         </thead>
-        <tbody id="content">
-            @php
-                use Carbon\Carbon;
-            @endphp
+        <tbody id="tableBodyContents">
             @if ($tasks !== null)
                 @foreach ($tasks as $task)
-                    <tr>
+                    <tr class="tableRow" data-id="{{ $task->id }}">
                         <td>{{ $task->name }}</td>
                         <td>
-                            <a href="">
-                                <i data-feather="eye" class="icon-action" style="color: #434D56" width=20px></i>
-                            </a>
                             <a data-bs-toggle="modal" data-bs-target="#deleteModal" style="cursor: pointer;">
                                 <i data-feather="trash-2" class="icon-action" style="color: #CA4E4E" width=20px></i>
                             </a>
@@ -49,6 +43,8 @@
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
 <script>
     $(document).ready(function() {
         $('#mySelect').on('change', function() {
@@ -57,4 +53,50 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+        $(function () {
+            $("#tableBodyContents").sortable({
+                items: "tr",
+                cursor: 'move',
+                opacity: 0.6,
+                update: function() {
+                    sendOrderToServer();
+                }
+            });
+
+            function sendOrderToServer() {
+                var valProject = $('#mySelect').val();
+                var order = [];
+                var token = $('meta[name="csrf-token"]').attr('content');
+
+                $('tr.tableRow').each(function(index,element) {
+                    order.push({
+                        id: $(this).attr('data-id'),
+                        position: index+1
+                    });
+                });
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: "{{ url('/task/task_reorder') }}",
+                    data: {
+                        order: order,
+                        project_id: valProject,
+                        _token: token
+                    },
+                    success: function(response) {
+                        if (response.status == "success") {
+                            window.location.reload();
+                            console.log(response);
+                        } else {
+                            console.log(response);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
 @endsection
