@@ -12,7 +12,9 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        return view('menu.project_index', [
+            'title' => 'Project'
+        ]);
     }
 
     /**
@@ -20,7 +22,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('menu.project_create', [
+            'title' => 'Project'
+        ]);
     }
 
     /**

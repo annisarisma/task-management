@@ -27,4 +27,5 @@ Route::controller(UserController::class)->group(function () {
 });
 Route::controller(ProjectController::class)->group(function () {
     Route::get('/project', 'index');
+    Route::get('/project/project-create', 'create');
 });

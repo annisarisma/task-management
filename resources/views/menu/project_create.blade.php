@@ -1,13 +1,14 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container">
-    <form class="shadow-lg body-tertiary rounded" method="POST" action="/register/store">
+<div class="container-content p-5">
+  <a href="/project/project-create" class="btn btn-primary mt-4 mb-4">Add Project</a>
+  <form method="POST" action="/register/store">
         @csrf
-        <h2 class="mb-4">Register</h2>
+        <h2 class="mb-4">Create New Project</h2>
         <div class="mb-3">
           <label for="name" class="form-label">Name</label>
-          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="John Doe" name="name" value="{{ old('name') }}">
+          <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Name the project" name="name" value="{{ old('name') }}">
           @error('name')
             <div class="invalid-feedback">
               {{ $message }}
@@ -15,18 +16,18 @@
           @enderror
         </div>
         <div class="mb-3">
-          <label for="username" class="form-label">Username</label>
-          <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="johndoe" name="username" value="{{ old('username') }}">
-          @error('username')
+          <label for="description" class="form-label">Description</label>
+          <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" placeholder="johndoe" name="description" value="{{ old('description') }}">
+          @error('description')
             <div class="invalid-feedback">
               {{ $message }}
             </div>
           @enderror
         </div>
         <div class="mb-3">
-          <label for="email" class="form-label">Email Address</label>
-          <input type="email" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="name@example.com" name="email" value="{{ old('email') }}">
-          @error('email')
+          <label for="member" class="form-label">Add Member</label>
+          <input type="member" class="form-control @error('member') is-invalid @enderror" id="member" placeholder="name@example.com" name="member" value="{{ old('member') }}">
+          @error('member')
             <div class="invalid-feedback">
               {{ $message }}
             </div>
@@ -56,5 +57,7 @@
     
         <p class="mt-4">Have an account? <a href="/login">Login</a></p>
     </form>
+</div>
+<div class="container">
 </div>
 @endsection

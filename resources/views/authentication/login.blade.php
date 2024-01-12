@@ -35,8 +35,3 @@
     </form>
 </div>
 @endsection
-
-@section('script')
-    {{-- Calling flash message toastr --}}
-    @include('layouts.flash-message')
-@endsection

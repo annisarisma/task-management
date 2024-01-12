@@ -83,7 +83,7 @@ class UserController extends Controller
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password], $remember)) {
             $request->session()->regenerate();
-            return redirect()->intended('/dashboard')->with('success-alert', [
+            return redirect()->intended('/project')->with('success-alert', [
                 'message' => $request->username . ' successfully login'
             ]);
         }
