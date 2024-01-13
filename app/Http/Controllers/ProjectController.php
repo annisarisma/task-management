@@ -214,7 +214,7 @@ class ProjectController extends Controller
             $project->delete();
             return back()->with('success-alert', [
                 'title' => 'Delete Success',
-                'message' => 'Task ' . $project_name . ' successfully deleted'
+                'message' => 'Project ' . $project_name . ' successfully deleted'
             ]);
         } catch (\Exception $e) {
             return back()->with('error-alert', [
