@@ -90,7 +90,7 @@
           <div class="container-inputTask" id="tasks_append">
             @foreach ($tasks as $task)
             <div class="inputTask d-flex gap-2 mt-3">
-              <input type="text" class="form-control @error('task') is-invalid @enderror" id="task" placeholder="johndoe" name="task[]" value="{{ $task->name ?? old('task') }}">
+              <input type="text" class="form-control @error('task') is-invalid @enderror" id="task" placeholder="Write some task" name="task[]" value="{{ $task->name ?? old('task') }}">
               <button type="button" name="add" class="btn btn-danger">Remove</button>
             </div>
             @endforeach
@@ -112,7 +112,7 @@
         ++i;
         $("#tasks_append").append(
             `<div class="inputTask d-flex gap-2 mt-3">
-              <input type="text" class="form-control @error('task_${i}') is-invalid @enderror" id="task_${i}" placeholder="johndoe" name="task[]" value="{{ old('task_${i}') }}">
+              <input type="text" class="form-control @error('task_${i}') is-invalid @enderror" id="task_${i}" placeholder="Write some task" name="task[]" value="{{ old('task_${i}') }}">
               <button type="button" name="add" class="btn btn-danger">Remove</button>
             </div>`
         );
