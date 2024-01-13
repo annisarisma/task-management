@@ -16,21 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['middleware' => 'auth'], function () {
-    Route::controller(UserController::class)->group(function () {
-        Route::post('/logout', 'logout');
-    });
-});
 
 Route::controller(UserController::class)->group(function () {
     Route::get('/register', 'register_index');
     Route::post('/register/store', 'register_store');
     Route::get('/login', 'login_index')->name('login');
     Route::post('/login/store', 'login_store');
-    Route::post('/logout', 'logout');
 });
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::controller(UserController::class)->group(function () {
+        Route::post('/logout', 'logout');
+    });
+
     Route::controller(ProjectController::class)->group(function () {
         Route::get('/project', 'index');
         Route::get('/project/project-create', 'create');

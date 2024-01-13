@@ -4,10 +4,16 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/project">Home</a>
+                    <a class="nav-link
+                        {{ $title == 'Project' ||
+                            $title == 'Create Project' ||
+                            $title == 'Update Project' ? 'active' : '' }}"
+                        aria-current="page" href="/project">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/task">Task</a>
+                    <a class="nav-link {{ $title == 'Task Project' ||
+                            $title == 'Create Task' ||
+                            $title == 'Update Task' ? 'active' : '' }}" aria-current="page" href="/task">Task</a>
                 </li>
             </ul>
         </div>

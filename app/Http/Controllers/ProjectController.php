@@ -21,6 +21,7 @@ class ProjectController extends Controller
 
         return view('menu.project_index', [
             'title' => 'Project',
+            'page' => 'project',
             'projects' => $projects
         ]);
     }
@@ -32,7 +33,8 @@ class ProjectController extends Controller
     {
         $users = User::where('id', '!=', auth()->id())->get();
         return view('menu.project_create', [
-            'title' => 'Project',
+            'title' => 'Create Project',
+            'page' => 'project',
             'users' => $users,
         ]);
     }
@@ -105,14 +107,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::find(base64_decode($id));
-        $tasks = Task::where('project_id', 'id')->get();
-
-        return view('menu.project_index', [
-            'title' => 'Project',
-            'projects' => $project,
-            'tasks' => $tasks
-        ]);
+        // 
     }
 
     /**
@@ -125,7 +120,8 @@ class ProjectController extends Controller
         $tasks = Task::where('project_id', decrypt($id))->orderBy('priority','ASC')->get();
 
         return view('menu.project_edit', [
-            'title' => 'Project',
+            'title' => 'Update Project',
+            'page' => 'project',
             'project' => $project,
             'users' => $users,
             'tasks' => $tasks,

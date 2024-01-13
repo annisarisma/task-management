@@ -18,7 +18,7 @@ class TaskController extends Controller
         })->get();
 
         return view('menu.task_index', [
-            'title' => 'Project',
+            'title' => 'Task Project',
             'projects' => $projects,
             'tasks' => null,
             'project_selected' => null,
@@ -38,7 +38,7 @@ class TaskController extends Controller
         
 
         return view('menu.task_index', [
-            'title' => 'Project',
+            'title' => 'Task Project',
             'projects' => $projects,
             'tasks' => $tasks,
             'project_selected' => $id,
@@ -105,7 +105,7 @@ class TaskController extends Controller
     {
         $task = Task::findOrFail(decrypt($id));
         return view('menu.task_edit', [
-            'title' => 'Edit',
+            'title' => 'Update Task',
             'task' => $task
         ]);
     }
@@ -129,7 +129,7 @@ class TaskController extends Controller
 
         // Return
         return view('menu.task_index', [
-            'title' => 'Edit',
+            'title' => 'Update Task',
             'projects' => $projects,
             'tasks' => $tasks,
             'project_selected' => $task->project_id,

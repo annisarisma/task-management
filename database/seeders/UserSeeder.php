@@ -18,6 +18,13 @@ class UserSeeder extends Seeder
         $faker = Faker::create();
 
         // Contoh membuat data fake untuk tabel 'users'
+        DB::table('users')->insert([
+            'name' => 'John Doe',
+            'username' => 'johndoe',
+            'email' => 'johndoe@gmail.com',
+            'password' => Hash::make('12345678'),
+        ]);
+        
         foreach (range(1, 10) as $index) {
             DB::table('users')->insert([
                 'name' => $faker->name,

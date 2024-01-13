@@ -5,22 +5,23 @@
     <div class="table-container">
     <div class="btn-group mb-5 gap-4">
         <select class="form-control js-example-basic-multiple" id="mySelect" name="area"
-            style="width: 12rem">
+            style="width: 20rem">
             @if ($project_selected == null)
-                <option selected>No Project Choose</option>
+                <option selected>No Project Choose...</option>
             @endif
             @foreach ($projects as $project)
                 <option {{ $project_selected == $project->id ? 'selected' : ' '}} value="{{ base64_encode($project->id) }}">{{ $project->name }}</option>
             @endforeach
         </select>
 
-        <a href="{{ $project_selected ? '/task/task_create/encrypt($project_selected)' : '#' }}" class="btn {{ $project_selected ? 'btn-success' : 'btn-secondary' }}" {{ $project_selected ? '' : 'disabled' }}>Add New Task</a>
+        <a href="{{ $project_selected ? '/project/project-edit/' . encrypt($project_selected) : '#' }}" class="btn {{ $project_selected ? 'btn-success' : 'btn-secondary' }}" {{ $project_selected ? '' : 'disabled' }}>Add New Task</a>
     </div>
 
     <table id="tableSort" class="table table-bordered table-hover" style="width: 100%">
         <thead>
             <tr>
                 <th>Taks Name</th>
+                <th>Task Priority</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -29,6 +30,7 @@
                 @foreach ($tasks as $task)
                     <tr class="tableRow" data-id="{{ $task->id }}">
                         <td>{{ $task->name }}</td>
+                        <td>{{ '#' . $task->priority }}</td>
                         <td>
                             <a data-bs-toggle="modal" data-bs-target="#deleteModal-{{ $task->id }}" style="cursor: pointer;">
                                 <i data-feather="trash-2" class="icon-action" style="color: #CA4E4E" width=20px></i>
@@ -57,7 +59,7 @@
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">Tidak</button>
                                         <form
-                                            action="/task/task_project/{{ encrypt($task->id) }}"
+                                            action="/task/task_destroy/{{ encrypt($task->id) }}"
                                             method="POST">
                                             @csrf
                                             @method('DELETE')
