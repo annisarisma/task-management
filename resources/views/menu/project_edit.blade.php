@@ -44,7 +44,8 @@
                         name="{{ 'newitem[' . $i . '][member][]' }}">
                         @foreach ($users as $user)
                             <option value="{{ $user->username }}"
-                              {{ in_array($user->id, array_column($project->project_users->toArray(), 'user_id')) ? 'selected' : '' }}>
+                              {{ in_array($user->id, array_column($project->project_users->toArray(), 'user_id')) ? 'selected' : '' }}
+                              value="{{ $user->username }}">
                               {{ $user->username }}
                             </option>
                         @endforeach

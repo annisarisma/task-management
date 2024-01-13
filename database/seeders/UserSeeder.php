@@ -17,7 +17,6 @@ class UserSeeder extends Seeder
     {
         $faker = Faker::create();
 
-        // Contoh membuat data fake untuk tabel 'users'
         DB::table('users')->insert([
             'name' => 'John Doe',
             'username' => 'johndoe',

@@ -3,12 +3,18 @@
 
 <!-- Include Toastr CSS and JS files -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+@if(session('success-alert'))
+    <script>
+        $(document).ready(function() {
+            $('.toast').toast('show');
+        });
+    </script>
+@endif
 
-{{-- Datatable --}}
+<!-- Datatable -->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.2/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.2/js/dataTables.bootstrap5.min.js"></script>
-
 <script>
     new DataTable('.table', {
         responsive: true,
@@ -16,12 +22,11 @@
     });
 </script>
 
-{{-- Toastr --}}
+<!-- Toastr -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-{{-- Select2 --}}
+<!-- Select2 -->
 <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
-
 <script>
     $(document).ready(function() {
         $('.js-example-basic-multiple').select2( {
@@ -30,16 +35,13 @@
     });
 </script>
 
-{{-- Feather Icon --}}
-<script src="https://unpkg.com/feather-icons"></script>
+<!-- Feather Icon -->
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 <script>
     feather.replace()
-</script>
 
-@if(session('success-alert'))
-    <script>
-        $(document).ready(function() {
-            $('.toast').toast('show');
-        });
-    </script>
-@endif
+    $('.table').on('draw.dt', function () {
+        feather.replace();
+    });
+
+</script>

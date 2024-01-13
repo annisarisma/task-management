@@ -82,12 +82,7 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->project_id;
-        $last_task = Task::where('project_id', $request->project_id)->orderBy('priority','DESC')->first();
-        Task::create([
-            'name' => $request->name,
-            'priority' => $last_task->priority + 1
-        ]);
+        // 
     }
 
     /**
@@ -115,8 +110,15 @@ class TaskController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Find Task
         $task = Task::findOrFail(decrypt($id));
-        $last_task = Task::where('project_id', $task->project_id)->orderBy('priority','DESC')->first();
+
+        // Validate Request
+        $request->validate([
+            'name' => ['required'],
+        ]);
+
+        // Update Task
         $task->update([
             'name' => $request->name,
         ]);

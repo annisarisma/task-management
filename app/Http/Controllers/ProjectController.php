@@ -143,7 +143,7 @@ class ProjectController extends Controller
 
         $project = Project::findOrFail($request->project_id);
 
-        // Store Project
+        // Update Project
         $project->update([
             'name' => $request->name,
             'user_id' => auth()->id(),
@@ -152,29 +152,39 @@ class ProjectController extends Controller
             'end_date' => $request->end_date,
         ]);
 
-        // Store Member
+        // Update Member
         foreach ($request->newitem as $value) {
             $arr_members = [];
             $arr_members[] = auth()->id();
 
             foreach ($value['member'] as $member) {
                 $user = User::where('username', $member)->first();
-    
                 $arr_members[] = $user->id;
             }
 
+            // Store if theres a new member
+            $project_members = ProjectUser::where('project_id', $request->project_id)->whereIn('user_id', $arr_members)->get();
+            $existing_members = $project_members->pluck('user_id')->toArray();
             foreach ($arr_members as $member) {
-                ProjectUser::create([
-                    'user_id' => $member,
-                    'project_id' => $project->id
-                ]);
+                if (!in_array($member, $existing_members)) {
+                    ProjectUser::create([
+                        'user_id' => $member,
+                        'project_id' => $request->project_id
+                    ]);
+                }
+            }
+
+            // Delete it if theres a delete member
+            $project_members = ProjectUser::where('project_id', $request->project_id)->get();
+            foreach ($project_members as $project_member) {
+                if (!in_array($project_member->user_id, $arr_members)) {
+                    $project_member->delete();
+                }
             }
         }
 
-        // Destroy Task
+        // Update Task
         Task::where('project_id', $request->project_id)->delete();
-
-        // Store Task
         $tasks = $request->input('task');
         $number = 1;
 
