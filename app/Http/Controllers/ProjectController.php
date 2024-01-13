@@ -115,7 +115,7 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        $users = User::all();
+        $users = User::where('id', '!=', auth()->id())->get();
         $project = Project::find(decrypt($id));
         $tasks = Task::where('project_id', decrypt($id))->orderBy('priority','ASC')->get();
 

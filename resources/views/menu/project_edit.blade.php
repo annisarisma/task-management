@@ -33,6 +33,7 @@
         </div>
 
         <!-- Member -->
+        @if ($project->user_id == auth()->id())
         <div class="row mb-3">
             <label for="member" class="form-label">Member</label>
             <div>
@@ -56,6 +57,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
         <!-- Start Date -->
         <div class="mb-3">

@@ -7,10 +7,10 @@ Hello there! This is my task management application. Task management involves pl
 ## 🚀 Key Features
 
 <h4>Project Creation and Management:</h4>
-Users have the ability to create projects with customizable details such as project name, description, and insert multiple members associated with the project. Additionally, users can input multiple tasks associated with each project.
+Users have the ability to create projects with customizable details such as project name, description, insert multiple members associated with the project, input the start date, and the end date. Additionally, users can input multiple tasks associated with each project. I use DataTables for the table, select2 for the dropdown option, and write original syntax using jQuery to append multiple input tasks.
 
 <h4>Priority Reordering:</h4>
-The application facilitates easy reordering of task priorities through a user-friendly drag-and-drop interface. I use jQuery and AJAX to build this reordering priority and compile it to the DataTables.
+The application facilitates easy reordering of task priorities through a user-friendly drag-and-drop interface. I use jQuery and AJAX to build this reordering priority and compile it to the DataTables. 
 
 <br>
 Feel free to explore and experience the convenience of managing your projects and tasks efficiently! 💁‍♀️
@@ -59,7 +59,7 @@ I use Miro to design the database, and it's as simple as this.
 6. php artisan serve
 
 ### <a href="https://emoji.gg/emoji/8663-pinged-creeper"><img src="https://cdn3.emoji.gg/emojis/8663-pinged-creeper.png" width="20px" alt="pinged_creeper"></a> A Small Addition
-I have implemented a simple user authentication system to provide real-time notifications to another users. You can log in using the username and password created by the seeder.
+I have implemented a simple user authentication system to associate members with other users. You can log in using the username and password created by the seeder. Additionally, I have generated a fake account for another user.
 
 - user 1 👨‍🦰: username: johndoe, password: 12345678
 
